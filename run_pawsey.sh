@@ -43,14 +43,14 @@ snakemake \
 # Using the latest commit to dev because of issues with staging from s3 on
 # release 0.10.0. See
 # https://github.com/sanger-tol/genomeassembly/compare/0.10.0...dev. Also,
-# Pawsey only has NF 24.04.3 so we can't use nf-schema@2.4.2. Commit 38ef06f
+# Pawsey only has NF 24.04.3 so we can't use nf-schema@2.4.2. Commit 68331e7
 # seems to be the last commit before this was added.
 nextflow inspect \
 	-concretize sanger-tol/genomeassembly \
 	--input results/sangertol_genomeassembly_params.yaml \
 	--outdir s3://pawsey1132.atol.testassembly/Themeda_triandra_106636/results/sanger_tol \
 	-profile singularity,pawsey \
-	-r 38ef06f
+	-r 68331e7
 
 # Note, it's tempting to use the apptainer profile, but the nf-core (and some
 # sanger-tol) pipelines have a conditional `workflow.containerEngine ==
@@ -63,7 +63,7 @@ nextflow \
 	--outdir s3://pawsey1132.atol.testassembly/Themeda_triandra_106636/results/sanger_tol \
 	-resume \
 	-profile singularity,pawsey \
-	-r 38ef06f
+	-r 68331e7
 
 exit 0
 
