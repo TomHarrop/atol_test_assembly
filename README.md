@@ -16,6 +16,7 @@ reformat them to suit the pipeline, and generate the YAML file.
 3. Find outputs. The scaffolded output is at e.g.
    `414129.hifiasm.20250123/scaffolding/yahs/out.break.yahs/out_scaffolds_final.fa`.
    But how does this look for assemblies without HiC?
+4. Find out what DToL mean by ["Illumina 10X"](https://github.com/sanger-tol/genomeassembly?tab=readme-ov-file#introduction)
 
 ## Findings so far
 
