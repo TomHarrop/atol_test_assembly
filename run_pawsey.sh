@@ -48,9 +48,9 @@ snakemake \
 nextflow inspect \
 	-concretize sanger-tol/genomeassembly \
 	--input results/sangertol_genomeassembly_params.yaml \
-	--outdir s3://pawsey1132.atol.testassembly/Themeda_triandra_106636/results/sanger_tol \
+	--outdir s3://pawsey1132.atol.testassembly/Meloidogyne_hapla_6305/results/sanger_tol \
 	-profile singularity,pawsey \
-	-r 38ef06f
+	-r 115b833
 
 # Note, it's tempting to use the apptainer profile, but the nf-core (and some
 # sanger-tol) pipelines have a conditional `workflow.containerEngine ==
@@ -60,18 +60,18 @@ nextflow \
 	run \
 	sanger-tol/genomeassembly \
 	--input results/sangertol_genomeassembly_params.yaml \
-	--outdir s3://pawsey1132.atol.testassembly/Themeda_triandra_106636/results/sanger_tol \
+	--outdir s3://pawsey1132.atol.testassembly/Meloidogyne_hapla_6305/results/sanger_tol \
 	-resume \
 	-profile singularity,pawsey \
-	-r 38ef06f
+	-r 115b833
 
 exit 0
 
 # currently the assembly output is hard-coded
-snakemake \
-	--profile profiles/pawsey_v8 \
-	--retries 0 \
-	--keep-going \
-	--cores 12 \
-	--local-cores "${SLURM_CPUS_ON_NODE}" \
-	rm_all
+# snakemake \
+# 	--profile profiles/pawsey_v8 \
+# 	--retries 0 \
+# 	--keep-going \
+# 	--cores 12 \
+# 	--local-cores "${SLURM_CPUS_ON_NODE}" \
+# 	rm_all
