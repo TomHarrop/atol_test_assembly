@@ -18,7 +18,7 @@ unset SBATCH_EXPORT
 # Application specific commands:
 set -eux
 
-source /software/projects/pawsey1132/tharrop/atol_test_assembly/venv/bin/activate
+source /software/projects/pawsey1132/tharrop/atol_test_assembly_meloidogyne_hapla/venv/bin/activate
 
 printf "TMPDIR: %s\n" "${TMPDIR}"
 printf "SLURM_CPUS_ON_NODE: %s\n" "${SLURM_CPUS_ON_NODE}"
