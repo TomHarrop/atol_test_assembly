@@ -10,7 +10,7 @@
 
 # Dependencies
 module load python/3.11.6
-module load nextflow/24.04.3
+# module load nextflow/24.04.3 used pip version
 module load singularity/4.1.0-nohost
 
 unset SBATCH_EXPORT
@@ -50,7 +50,7 @@ nextflow inspect \
 	--input results/sangertol_genomeassembly_params.yaml \
 	--outdir s3://pawsey1132.atol.testassembly/Themeda_triandra_106636/results/sanger_tol \
 	-profile singularity,pawsey \
-	-r 115b833
+	-r 72fea70
 
 # Note, it's tempting to use the apptainer profile, but the nf-core (and some
 # sanger-tol) pipelines have a conditional `workflow.containerEngine ==
@@ -63,7 +63,7 @@ nextflow \
 	--outdir s3://pawsey1132.atol.testassembly/Themeda_triandra_106636/results/sanger_tol \
 	-resume \
 	-profile singularity,pawsey \
-	-r 115b833
+	-r 72fea70
 
 exit 0
 
