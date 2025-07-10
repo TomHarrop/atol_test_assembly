@@ -10,7 +10,8 @@
 
 # Dependencies
 module load python/3.11.6
-# waiting for pawsey to install newer version
+# Waiting for pawsey to install newer version. In the meantime, manually
+# installed in /software/projects/pawsey1132/tharrop/atol_test_assembly/bin
 # module load nextflow/24.04.3 
 module load singularity/4.1.0-nohost
 
@@ -24,6 +25,11 @@ source /software/projects/pawsey1132/tharrop/atol_test_assembly/venv/bin/activat
 printf "TMPDIR: %s\n" "${TMPDIR}"
 printf "SLURM_CPUS_ON_NODE: %s\n" "${SLURM_CPUS_ON_NODE}"
 
+# load the manual nextflow install
+export PATH="${PATH}:/software/projects/pawsey1132/tharrop/atol_test_assembly/bin"
+# set the NXF home for plugins etc
+export NXF_HOME=/software/projects/pawsey1132/tharrop/atol_test_assembly/.nextflow
+
 if [ -z "${SINGULARITY_CACHEDIR}" ]; then
 	export SINGULARITY_CACHEDIR=/software/projects/pawsey1132/tharrop/.singularity
 	export APPTAINER_CACHEDIR="${SINGULARITY_CACHEDIR}"
@@ -31,6 +37,9 @@ fi
 
 export NXF_APPTAINER_CACHEDIR="${SINGULARITY_CACHEDIR}/library"
 export NXF_SINGULARITY_CACHEDIR="${SINGULARITY_CACHEDIR}/library"
+
+which nextflow
+exit 1
 
 snakemake \
 	--profile profiles/pawsey_v8 \
