@@ -40,6 +40,8 @@ fi
 export NXF_APPTAINER_CACHEDIR="${SINGULARITY_CACHEDIR}/library"
 export NXF_SINGULARITY_CACHEDIR="${SINGULARITY_CACHEDIR}/library"
 
+PIPELINE_VERSION="a6f7cb6"
+
 snakemake \
 	--profile profiles/pawsey_v8 \
 	--retries 0 \
@@ -59,7 +61,7 @@ nextflow inspect \
 	--input results/sangertol_genomeassembly_params.yaml \
 	--outdir s3://pawsey1132.atol.testassembly/Themeda_triandra_106636/results/sanger_tol \
 	-profile singularity,pawsey \
-	-r 72fea70
+	-r "${PIPELINE_VERSION}"
 
 # Note, it's tempting to use the apptainer profile, but the nf-core (and some
 # sanger-tol) pipelines have a conditional `workflow.containerEngine ==
@@ -72,7 +74,7 @@ nextflow \
 	--outdir s3://pawsey1132.atol.testassembly/Themeda_triandra_106636/results/sanger_tol \
 	-resume \
 	-profile singularity,pawsey \
-	-r 72fea70
+	-r "${PIPELINE_VERSION}"
 
 exit 0
 
