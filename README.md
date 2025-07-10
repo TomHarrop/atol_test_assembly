@@ -17,7 +17,8 @@ reformat them to suit the pipeline, and generate the YAML file.
    `414129.hifiasm.20250123/scaffolding/yahs/out.break.yahs/out_scaffolds_final.fa`.
    But how does this look for assemblies without HiC?
 4. Find out what DToL mean by ["Illumina 10X"](https://github.com/sanger-tol/genomeassembly?tab=readme-ov-file#introduction)
-5. Nextflow standalone doesn't work with S3 storage ("Missing plugin 'nf-amazon' required to read file")
+5. Nextflow standalone doesn't work with S3 storage ("Missing plugin
+   'nf-amazon' required to read file"). Pawsey version does work.
 
 ## Findings so far
 
