@@ -12,7 +12,7 @@
 module load python/3.11.6
 # Waiting for pawsey to install newer version. In the meantime, manually
 # installed in /software/projects/pawsey1132/tharrop/atol_test_assembly/bin
-# module load nextflow/24.04.3 
+# module load nextflow/24.04.3
 module load singularity/4.1.0-nohost
 
 unset SBATCH_EXPORT
@@ -27,6 +27,8 @@ printf "SLURM_CPUS_ON_NODE: %s\n" "${SLURM_CPUS_ON_NODE}"
 
 # load the manual nextflow install
 export PATH="${PATH}:/software/projects/pawsey1132/tharrop/atol_test_assembly/bin"
+printf "nextflow: %s\n" "$(which nextflow)"
+
 # set the NXF home for plugins etc
 export NXF_HOME=/software/projects/pawsey1132/tharrop/atol_test_assembly/.nextflow
 
@@ -37,9 +39,6 @@ fi
 
 export NXF_APPTAINER_CACHEDIR="${SINGULARITY_CACHEDIR}/library"
 export NXF_SINGULARITY_CACHEDIR="${SINGULARITY_CACHEDIR}/library"
-
-which nextflow
-exit 1
 
 snakemake \
 	--profile profiles/pawsey_v8 \
@@ -55,7 +54,7 @@ snakemake \
 # https://github.com/sanger-tol/genomeassembly/compare/0.10.0...dev. Also,
 # Pawsey only has NF 24.04.3 so we can't use nf-schema@2.4.2. Commit 68331e7
 # seems to be the last commit before this was added.
-./nextflow inspect \
+nextflow inspect \
 	-concretize sanger-tol/genomeassembly \
 	--input results/sangertol_genomeassembly_params.yaml \
 	--outdir s3://pawsey1132.atol.testassembly/Themeda_triandra_106636/results/sanger_tol \
@@ -65,7 +64,7 @@ snakemake \
 # Note, it's tempting to use the apptainer profile, but the nf-core (and some
 # sanger-tol) pipelines have a conditional `workflow.containerEngine ==
 # 'singularity'` that prevents using the right URL with apptainer.
-./nextflow \
+nextflow \
 	-log "nextflow_logs/nextflow.$(date +"%Y%m%d%H%M%S").${RANDOM}.log" \
 	run \
 	sanger-tol/genomeassembly \
