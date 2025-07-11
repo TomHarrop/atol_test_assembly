@@ -4,6 +4,7 @@
 #SBATCH --time=3-00
 #SBATCH --cpus-per-task=2
 #SBATCH --ntasks=1
+#SBATCH --partition=long
 #SBATCH --mem=32g
 #SBATCH --output=sm.slurm.out
 #SBATCH --error=sm.slurm.err
