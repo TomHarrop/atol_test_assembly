@@ -60,7 +60,7 @@ rule samtools_import:
         "-r ID:{params.prefix} "
         "-r CN:{params.hic_kit} "
         "-r PU:{params.prefix} "
-        "-r SM:{params.sample_name}"
+        "-r SM:{params.sample_name} "
         "-o {output.cram} "
         "2> {log} "
         "&& "
