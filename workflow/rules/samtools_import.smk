@@ -41,6 +41,11 @@ rule samtools_import:
         flagstat=add_bucket_to_path(
             Path(dataset_id, "results", "reads", "hic", "hic.flagstat")
         ),
+    params:
+        # 
+        prefix=dataset_id,
+        sample_name=dataset_id,
+        hic_kit="arima",  # FIXME
     log:
         Path("logs", "samtools_import.log"),
     resources:
@@ -52,6 +57,10 @@ rule samtools_import:
         "-@{threads} "
         "{input.r1} "
         "{input.r2} "
+        "-r ID:{params.prefix} "
+        "-r CN:{params.hic_kit} "
+        "-r PU:{params.prefix} "
+        "-r SM:{params.sample_name}"
         "-o {output.cram} "
         "2> {log} "
         "&& "
