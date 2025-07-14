@@ -49,9 +49,7 @@ snakemake \
 	--keep-going \
 	--cores 12 \
 	--local-cores "${SLURM_CPUS_ON_NODE}" \
-	samtools_import
-
-exit 0
+	config_target
 
 # Pull the containers into the cache before trying to launch the workflow.
 # Using the latest commit to dev because of issues with staging from s3 on
