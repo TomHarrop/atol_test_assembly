@@ -42,14 +42,13 @@ rule samtools_import:
             Path(dataset_id, "results", "reads", "hic", "hic.flagstat")
         ),
     params:
-        # 
         prefix=dataset_id,
         sample_name=dataset_id,
         hic_kit="arima",  # FIXME
     log:
         Path("logs", "samtools_import.log"),
     resources:
-        runtime=lambda wildcards, attempt: int(120 * attempt),
+        runtime=lambda wildcards, attempt: int(240 * attempt),
     container:
         get_container("samtools")
     shell:
