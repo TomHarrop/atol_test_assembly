@@ -61,6 +61,7 @@ nextflow inspect \
 	-concretize sanger-tol/genomeassembly \
 	--input results/sangertol_genomeassembly_params.yaml \
 	--outdir s3://pawsey1132.atol.testassembly/Themeda_triandra_106636/results/sanger_tol \
+    --timestamp "v2" \
 	-profile singularity,pawsey \
 	-r "${PIPELINE_VERSION}"
 
@@ -73,6 +74,7 @@ nextflow \
 	sanger-tol/genomeassembly \
 	--input results/sangertol_genomeassembly_params.yaml \
 	--outdir s3://pawsey1132.atol.testassembly/Themeda_triandra_106636/results/sanger_tol \
+    --timestamp "v2" \
 	-resume \
 	-profile singularity,pawsey \
 	-r "${PIPELINE_VERSION}"
