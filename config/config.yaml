@@ -1,9 +1,9 @@
 ---
 sanger_config_template: resources/sangertol_genomeassembly_params_template.yaml.j2
-dataset_id: Themeda_triandra_106636
+dataset_id: Emblema_pictum_247745
 hic_motif: "GATC,GANTC,CTNAG,TTAA"
-busco_lineage: poales_odb10
-mito_species: Themeda triandra
+busco_lineage: aves_odb10
+mito_species: Emblema pictum
 mito_min_length: 15000
 mito_code: 5
 output_bucket: "s3://pawsey1132.atol.testassembly"

@@ -60,8 +60,10 @@ snakemake \
 nextflow inspect \
 	-concretize sanger-tol/genomeassembly \
 	--input results/sangertol_genomeassembly_params.yaml \
-	--outdir s3://pawsey1132.atol.testassembly/Themeda_triandra_106636/results/sanger_tol \
-    --timestamp "v2" \
+	--outdir s3://pawsey1132.atol.testassembly/Emblema_pictum_247745/results/sanger_tol \
+    --timestamp "v1" \
+	--hifiasm_hic_on \
+	--organelles_on \
 	-profile singularity,pawsey \
 	-r "${PIPELINE_VERSION}"
 
@@ -73,7 +75,7 @@ nextflow \
 	run \
 	sanger-tol/genomeassembly \
 	--input results/sangertol_genomeassembly_params.yaml \
-	--outdir s3://pawsey1132.atol.testassembly/Themeda_triandra_106636/results/sanger_tol \
+	--outdir s3://pawsey1132.atol.testassembly/Emblema_pictum_247745/results/sanger_tol \
     --timestamp "v2" \
 	-resume \
 	-profile singularity,pawsey \
