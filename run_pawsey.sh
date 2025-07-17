@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH --job-name=atol_test
+#SBATCH --job-name=atol_epict
 #SBATCH --time=3-00
 #SBATCH --cpus-per-task=2
 #SBATCH --ntasks=1
