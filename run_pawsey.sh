@@ -36,7 +36,6 @@ PIPELINE_PARAMS=(
 	"--outdir" "s3://pawsey1132.atol.testassembly/${RESULT_DIRNAME}/results/sanger_tol"
     "--timestamp" "${RESULT_VERSION}" 
 	"--hifiasm_hic_on"
-	"--organelles_on" 
 	"-profile" "singularity,pawsey"
 	"-r" "${PIPELINE_VERSION}"
 )
