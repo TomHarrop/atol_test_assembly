@@ -80,14 +80,11 @@ snakemake \
 # https://github.com/sanger-tol/genomeassembly/compare/0.10.0...dev. Also,
 # Pawsey only has NF 24.04.3 so we can't use nf-schema@2.4.2. Commit 68331e7
 # seems to be the last commit before this was added.
-echo \
 nextflow \
 	-log "nextflow_logs/nextflow_inspect.$(date +"%Y%m%d%H%M%S").${RANDOM}.log" \
 	inspect \
 	-concretize sanger-tol/genomeassembly \
 	"${PIPELINE_PARAMS[@]}"
-
-exit 1
 
 # Note, it's tempting to use the apptainer profile, but the nf-core (and some
 # sanger-tol) pipelines have a conditional `workflow.containerEngine ==
