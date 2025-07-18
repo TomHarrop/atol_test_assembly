@@ -1,14 +1,13 @@
 #!/bin/bash
 
 #SBATCH --job-name=atol_epict
-#SBATCH --time=0-01
+#SBATCH --time=3-00
 #SBATCH --cpus-per-task=2
 #SBATCH --ntasks=1
 #SBATCH --mem=32g
 #SBATCH --output=sm.slurm.out
 #SBATCH --error=sm.slurm.err
-
-##SBATCH --partition=long
+#SBATCH --partition=long
 
 # Dependencies
 module load python/3.11.6
