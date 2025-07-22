@@ -48,7 +48,7 @@ rule samtools_import:
     log:
         Path("logs", "samtools_import.log"),
     resources:
-        runtime=lambda wildcards, attempt: int(240 * attempt),
+        runtime=lambda wildcards, attempt: int(480 * attempt),
     container:
         get_container("samtools")
     shell:
