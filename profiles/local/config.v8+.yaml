@@ -1,0 +1,30 @@
+---
+max-jobs-per-second: 50
+max-status-checks-per-second: 10
+local-cores: 2
+cores: 50
+latency-wait: 60
+jobs: 128
+keep-going: true
+keep-storage-local-copies: true
+rerun-incomplete: true
+printshellcmds: true
+use-singularity: true
+use-conda: False
+singularity-args: "-B $PWD,$TMPDIR \
+  --nv \
+  -H $(mktemp -d) \
+  --pwd $PWD \
+  --containall --cleanenv --writable-tmpfs"
+# see https://snakemake.github.io/snakemake-plugin-catalog/plugins/storage/fs.html#further-details
+default-storage-provider: fs
+local-storage-prefix: $PWD/.snakemake
+shared-fs-usage:
+  - persistence
+  - software-deployment
+  - sources
+  - source-cache
+# s3
+storage-s3-endpoint-url: https://projects.pawsey.org.au
+storage-s3-access-key: $AWS_ACCESS_KEY_ID
+storage-s3-secret-key: $AWS_SECRET_ACCESS_KEY
