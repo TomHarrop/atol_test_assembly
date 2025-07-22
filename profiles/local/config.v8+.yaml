@@ -2,7 +2,7 @@
 max-jobs-per-second: 50
 max-status-checks-per-second: 10
 local-cores: 2
-cores: 50
+cores: 30
 latency-wait: 60
 jobs: 128
 keep-going: true
