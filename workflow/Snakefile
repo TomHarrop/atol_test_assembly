@@ -55,7 +55,12 @@ module test_rm:
         {
             **config,
             "query_genome": storage.s3(
-                "s3://pawsey1132.atol.testassembly/414129_AusARG/results/sanger_tol/414129.hifiasm.20250123/scaffolding/yahs/out.break.yahs/out_scaffolds_final.fa",
+                (
+                    "s3://pawsey1132.atol.testassembly/"
+                    "ThemedaTriandra106636/results/sanger_tol/"
+                    "ThemedaTriandra106636.hifiasm-hic.v3/scaffolding_hap1/"
+                    "yahs/out.break.yahs/hap1_scaffolds_final.fa"
+                ),
             ),
         }
 
@@ -72,5 +77,5 @@ use rule clean from test_rm as test_rm_clean with:
 use rule all from test_rm as rm_all with:
     output:
         storage.s3(
-            "s3://pawsey1132.atol.testassembly/414129_AusARG/results/out_scaffolds_final.masked.fa.gz",
+            "s3://pawsey1132.atol.testassembly/ThemedaTriandra106636/results/out_scaffolds_final.masked.fa.gz",
         ),
