@@ -76,7 +76,7 @@ use rule model from test_rm as test_rm_model with:
     threads: 4
     resources:
         time=lambda wildcards, attempt: 1440 * attempt,
-        mem_mb=44e3
+        mem_mb=int(44e3)
 
 use rule all from test_rm as rm_all with:
     output:
