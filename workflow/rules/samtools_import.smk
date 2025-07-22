@@ -71,3 +71,4 @@ rule samtools_import:
         "{output.cram} "
         "> {output.flagstat} "
         "2>> {log} "
+
