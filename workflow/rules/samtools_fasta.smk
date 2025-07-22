@@ -2,7 +2,7 @@ def get_hifi_readfiles(wildcards):
     return [
         Path("resources", "reads", filename)
         for filename, url in data_file_dict.items()
-        if filename.endswith(".hifi_reads.bam")
+        if (filename.endswith(".hifi_reads.bam") or filename.endswith(".ccs.bam"))
     ]
 
 

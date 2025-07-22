@@ -55,7 +55,12 @@ module test_rm:
         {
             **config,
             "query_genome": storage.s3(
-                "s3://pawsey1132.atol.testassembly/414129_AusARG/results/sanger_tol/414129.hifiasm.20250123/scaffolding/yahs/out.break.yahs/out_scaffolds_final.fa",
+                (
+                    "s3://pawsey1132.atol.testassembly/"
+                    "Emblema_pictum_247745/results/sanger_tol/"
+                    "Emblema.hifiasm-hic.v1/scaffolding_hap1/"
+                    "yahs/out.break.yahs/hap1_scaffolds_final.fa"
+                ),
             ),
         }
 
