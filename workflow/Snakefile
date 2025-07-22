@@ -72,8 +72,14 @@ use rule clean from test_rm as test_rm_clean with:
         mem_mb=lambda wildcards, attempt: 48e3 * attempt,
 
 
+use rule model from test_rm as test_rm_model with:
+    threads: 4
+    resources:
+        time=lambda wildcards, attempt: 1440 * attempt,
+        mem_mb=44e3
+
 use rule all from test_rm as rm_all with:
     output:
         storage.s3(
-            "s3://pawsey1132.atol.testassembly/414129_AusARG/results/out_scaffolds_final.masked.fa.gz",
+            "s3://pawsey1132.atol.testassembly/Emblema_pictum_247745/results/out_scaffolds_final.masked.fa.gz",
         ),
