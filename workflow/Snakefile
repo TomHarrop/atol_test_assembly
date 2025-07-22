@@ -73,7 +73,9 @@ use rule clean from test_rm as test_rm_clean with:
 
 
 use rule model from test_rm as test_rm_model with:
-    threads: 4
+    container:
+        "docker://dfam/tetools:1.93"
+    threads: 32
     resources:
         time=lambda wildcards, attempt: 1440 * attempt,
         mem_mb=int(44e3)
