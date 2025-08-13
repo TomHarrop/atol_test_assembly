@@ -2,18 +2,13 @@
 
 
 include: "rules/common.smk"
-include: "rules/samtools_import.smk"
 include: "rules/samtools_fasta.smk"
 
 
 # this is from the bpa_dataportal_downloads project
 # results of a search for query = {"sample_id": '102.100.100/411655'}
 data_file_dict = {
-    "369564_LibID371564_AG_BRF_m84118_231208_115614_s4.hifi_reads.bam": "https://data.bioplatforms.com/dataset/bpa-grasslands-pacbio-hifi-371564-m84118_231208_115614_s4/resource/216c8ca75dbc6383f76cd2c9c7e40e39/download/369564_LibID371564_AG_BRF_m84118_231208_115614_s4.hifi_reads.bam",
-    "369564_LibID371565_AG_BRF_HMMYTDRX3_TCAGCATC_S1_L001_R1_001.fastq.gz": "https://data.bioplatforms.com/dataset/bpa-grasslands-hi-c-371565-373565/resource/5fb1bde2e50768d6b22aa2e00f97352b/download/369564_LibID371565_AG_BRF_HMMYTDRX3_TCAGCATC_S1_L001_R1_001.fastq.gz",
-    "369564_LibID371565_AG_BRF_HMMYTDRX3_TCAGCATC_S1_L001_R2_001.fastq.gz": "https://data.bioplatforms.com/dataset/bpa-grasslands-hi-c-371565-373565/resource/31b685a72a8af749b846ee26f0191eff/download/369564_LibID371565_AG_BRF_HMMYTDRX3_TCAGCATC_S1_L001_R2_001.fastq.gz",
-    "369564_LibID371565_AG_BRF_HMMYTDRX3_TCAGCATC_S1_L002_R2_001.fastq.gz": "https://data.bioplatforms.com/dataset/bpa-grasslands-hi-c-371565-373565/resource/6210ed784e097cc422f64d377a6c356b/download/369564_LibID371565_AG_BRF_HMMYTDRX3_TCAGCATC_S1_L002_R2_001.fastq.gz",
-    "369564_LibID371565_AG_BRF_HMMYTDRX3_TCAGCATC_S1_L002_R1_001.fastq.gz": "https://data.bioplatforms.com/dataset/bpa-grasslands-hi-c-371565-373565/resource/80421efe3bc90ae4ecfa914bd27cd362/download/369564_LibID371565_AG_BRF_HMMYTDRX3_TCAGCATC_S1_L002_R1_001.fastq.gz",
+    "395386_PP_AGRF_m84073_230802_055109_s2.ccs.bam": "https://data.bioplatforms.com/dataset/bpa-pp-pacbio-hifi-395386-m84073_230802_055109_s2/resource/688d158c73f4bb40293581860e8ef3e8/download/395386_PP_AGRF_m84073_230802_055109_s2.ccs.bam",
 }
 
 
@@ -28,7 +23,6 @@ rule format_config_file:
         ),
     params:
         pacbio_reads=[rules.samtools_fasta.output.reads],
-        hic_reads=[rules.samtools_import.output.cram],
     container:
         get_container("ncbi-datasets-pylib")
     script:
@@ -39,7 +33,6 @@ rule config_target:
     default_target: True
     localrule: True
     input:
-        storage.s3(rules.samtools_import.output),
         storage.s3(rules.samtools_fasta.output),
         rendered_yaml=storage.s3(rules.format_config_file.output.rendered_yaml),
     output:
@@ -47,35 +40,3 @@ rule config_target:
     shell:
         "cp {input.rendered_yaml} {output}"
 
-
-module test_rm:
-    snakefile:
-        github("tomharrop/test-module-rm", path="workflow/Snakefile", tag="v0.0.6")
-    config:
-        {
-            **config,
-            "query_genome": storage.s3(
-                (
-                    "s3://pawsey1132.atol.testassembly/"
-                    "ThemedaTriandra106636/results/sanger_tol/"
-                    "ThemedaTriandra106636.hifiasm-hic.v3/scaffolding_hap1/"
-                    "yahs/out.break.yahs/hap1_scaffolds_final.fa"
-                ),
-            ),
-        }
-
-
-use rule * from test_rm as test_rm_*
-
-
-use rule clean from test_rm as test_rm_clean with:
-    resources:
-        runtime=lambda wildcards, attempt: 720 * attempt,
-        mem_mb=lambda wildcards, attempt: 48e3 * attempt,
-
-
-use rule all from test_rm as rm_all with:
-    output:
-        storage.s3(
-            "s3://pawsey1132.atol.testassembly/ThemedaTriandra106636/results/out_scaffolds_final.masked.fa.gz",
-        ),

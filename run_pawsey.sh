@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH --job-name=atol_ttrian
+#SBATCH --job-name=atol_rcom
 #SBATCH --time=3-00
 #SBATCH --cpus-per-task=2
 #SBATCH --ntasks=1
@@ -27,9 +27,9 @@ printf "SLURM_CPUS_ON_NODE: %s\n" "${SLURM_CPUS_ON_NODE}"
 
 # parameters
 PIPELINE_VERSION="a6f7cb6"
-SOURCE_DIRNAME="atol_test_assembly-themeda_triandra"
-RESULT_DIRNAME="ThemedaTriandra106636"
-RESULT_VERSION="v3"
+SOURCE_DIRNAME="atol_test_assembly-rhynchosporium-graminicola"
+RESULT_DIRNAME="RhynchosporiumGraminicola2792576"
+RESULT_VERSION="v0"
 
 PIPELINE_PARAMS=(
 	"--input" "results/sangertol_genomeassembly_params.yaml" 
