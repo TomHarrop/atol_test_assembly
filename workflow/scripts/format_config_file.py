@@ -20,7 +20,6 @@ def main():
         mito_min_length=mito_min_length,
         mito_code=mito_code,
         pacbio_reads=snakemake.params["pacbio_reads"],
-        hic_reads=snakemake.params["hic_reads"],
     )
 
     with open(snakemake.output["rendered_yaml"], "w") as f:
