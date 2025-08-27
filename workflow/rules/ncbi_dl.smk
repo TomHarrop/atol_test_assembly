@@ -11,21 +11,26 @@ rule ncbi_dl_target:
         "cp {input} {output} "
 
 
-# can't use shadow rules or filesystems with sra-tools.
 rule dump_srafile:
     input:
         srafile="resources/ncbi/{filename}.sra",
     output:
         fasta=temp("resources/ncbi/{filename}.fasta"),
+    # have to explicitly specify the paths rather than use subpath() because of
+    # the way sra-tools resolves them
     params:
-        outfile=subpath(output.fasta, basename=True),
-        outdir=subpath(output.fasta, parent=True),
+        outdir="resources/ncbi",
+        outfile="{filename}.fasta",
+        # outfile=subpath(output.fasta, basename=True),
+        # outdir=subpath(output.fasta, parent=True),
     log:
         "logs/dump_srafile.{filename}.log",
     threads: 2
     resources:
         runtime="12h",
         mem="128GB",
+    shadow:
+        "minimal"
     container:
         "docker://quay.io/biocontainers/sra-tools:3.2.1--h4304569_1"
     shell:
@@ -41,6 +46,8 @@ rule dump_srafile:
         '--temp "${{tmpdir}}" '
         "{input.srafile} "
         "&> {log} "
+        "&& find . "
+        "&& find {params.outdir}/ "
 
 
 rule download_srafile:
