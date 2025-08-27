@@ -29,6 +29,7 @@ rule dump_srafile:
         "docker://quay.io/biocontainers/sra-tools:3.1.1--h4304569_0"
     shell:
         "ln -s {input.srafile} ./{wildcards.filename} && "
+        'tmpdir="$( mktemp -d )" && '
         "fasterq-dump "
         "--outfile {wildcards.filename} "
         "--threads {threads} "
@@ -36,6 +37,7 @@ rule dump_srafile:
         "--log-level 6 "
         "--verbose "
         "--fasta "
+        '--temp "${{tmpdir}}" '
         "{wildcards.filename} "
         "&> {log} "
         "&& mv {wildcards.filename}* {params.outdir}/ "
