@@ -33,15 +33,17 @@ rule dump_srafile:
         'tmpdir="$( mktemp -d )" && '
         "fasterq-dump "
         "--outfile {wildcards.filename} "
+        "--outdir {params.outdir} "
         "--threads {threads} "
         "--details "
         "--log-level 6 "
         "--verbose "
         "--fasta "
-        '--temp "${{tmpdir}}" '
+        '--temp "${{tmpdir}}" '     
         "{wildcards.filename} "
         "&> {log} "
-        "&& mv {wildcards.filename}* {params.outdir}/ "
+        "&& ls -lhrt ./*/* "
+        
 
 
 rule download_srafile:
