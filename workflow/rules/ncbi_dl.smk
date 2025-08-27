@@ -30,6 +30,8 @@ rule dump_srafile:
     shell:
         "ln -s {input.srafile} ./{wildcards.filename} && "
         'tmpdir="$( mktemp -d )" && '
+        'echo "${{tmpdir}}" && '
+        'df -h "${{tmpdir}}" && '
         "fasterq-dump "
         "--outfile {wildcards.filename} "
         "--threads {threads} "
