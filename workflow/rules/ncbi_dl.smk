@@ -25,8 +25,6 @@ rule dump_srafile:
     resources:
         runtime="12h",
         mem="128GB",
-    shadow:
-        "minimal"
     container:
         "docker://quay.io/biocontainers/sra-tools:3.2.1--h4304569_1"
     shell:
