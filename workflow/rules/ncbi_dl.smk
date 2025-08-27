@@ -4,7 +4,7 @@ pacbio_url = "https://sra-downloadb.be-md.ncbi.nlm.nih.gov/sos8/sra-pub-run-834/
 
 rule ncbi_dl_target:
     input:
-        Path("resources", "ncbi", f"{filename}.fasta"),
+        local("resources/ncbi/{filename}.fasta")
     output:
         reads=Path("resources", "reads", "hifi", "ccs_reads.fasta.gz"),
     shell:
