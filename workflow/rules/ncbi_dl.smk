@@ -22,7 +22,7 @@ rule dump_srafile:
         Path("logs", "dump_srafile.{filename}.log"),
     threads: 2
     resources:
-        runtime=lambda wildcards, attempt: int(60 * attempt),
+        runtime=lambda wildcards, attempt: int(120 * attempt),
     shadow:
         "minimal"
     container:
@@ -50,7 +50,7 @@ rule download_srafile:
     log:
         Path("logs", "download_srafile.SRR33206838.log"),
     resources:
-        runtime=lambda wildcards, attempt: int(60 * attempt),
+        runtime=lambda wildcards, attempt: int(120 * attempt),
     shadow:
         "minimal"
     container:
