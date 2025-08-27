@@ -23,6 +23,7 @@ rule dump_srafile:
     threads: 2
     resources:
         runtime=lambda wildcards, attempt: int(120 * attempt),
+        mem="32GB",
     shadow:
         "minimal"
     container:
