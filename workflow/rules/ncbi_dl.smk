@@ -22,7 +22,7 @@ rule dump_srafile:
         Path("logs", "dump_srafile.{filename}.log"),
     threads: 2
     resources:
-        runtime=lambda wildcards, attempt: int(120 * attempt),
+        runtime="12h",
         mem="128GB",
     shadow:
         "minimal"
