@@ -19,6 +19,7 @@ data_file_dict = {
 }
 
 
+
 rule format_config_file:
     input:
         sanger_config_template=local(sanger_config_template),
