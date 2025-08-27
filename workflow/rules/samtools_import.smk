@@ -34,13 +34,9 @@ rule samtools_import:
         r1=rules.concatenate_hic_reads.output.merged.format(direction="R1"),
         r2=rules.concatenate_hic_reads.output.merged.format(direction="R2"),
     output:
-        cram=add_bucket_to_path(Path(dataset_id, "results", "reads", "hic", "hic.cram")),
-        index=add_bucket_to_path(
-            Path(dataset_id, "results", "reads", "hic", "hic.cram.crai")
-        ),
-        flagstat=add_bucket_to_path(
-            Path(dataset_id, "results", "reads", "hic", "hic.flagstat")
-        ),
+        cram=Path("resources", "reads", "hic", "hic.cram"),
+        index=Path("resources", "reads", "hic", "hic.cram.crai"),
+        flagstat=Path("resources", "reads", "hic", "hic.flagstat"),
     params:
         prefix=dataset_id,
         sample_name=dataset_id,
@@ -71,4 +67,3 @@ rule samtools_import:
         "{output.cram} "
         "> {output.flagstat} "
         "2>> {log} "
-

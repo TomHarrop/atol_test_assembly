@@ -3,17 +3,19 @@
 
 include: "rules/common.smk"
 include: "rules/samtools_import.smk"
-include: "rules/samtools_fasta.smk"
+include: "rules/ncbi_dl.smk"
+
+
+# include: "rules/samtools_fasta.smk"
 
 
 # this is from the bpa_dataportal_downloads project
 # results of a search for query = {"sample_id": '102.100.100/411655'}
 data_file_dict = {
-    "369564_LibID371564_AG_BRF_m84118_231208_115614_s4.hifi_reads.bam": "https://data.bioplatforms.com/dataset/bpa-grasslands-pacbio-hifi-371564-m84118_231208_115614_s4/resource/216c8ca75dbc6383f76cd2c9c7e40e39/download/369564_LibID371564_AG_BRF_m84118_231208_115614_s4.hifi_reads.bam",
-    "369564_LibID371565_AG_BRF_HMMYTDRX3_TCAGCATC_S1_L001_R1_001.fastq.gz": "https://data.bioplatforms.com/dataset/bpa-grasslands-hi-c-371565-373565/resource/5fb1bde2e50768d6b22aa2e00f97352b/download/369564_LibID371565_AG_BRF_HMMYTDRX3_TCAGCATC_S1_L001_R1_001.fastq.gz",
-    "369564_LibID371565_AG_BRF_HMMYTDRX3_TCAGCATC_S1_L001_R2_001.fastq.gz": "https://data.bioplatforms.com/dataset/bpa-grasslands-hi-c-371565-373565/resource/31b685a72a8af749b846ee26f0191eff/download/369564_LibID371565_AG_BRF_HMMYTDRX3_TCAGCATC_S1_L001_R2_001.fastq.gz",
-    "369564_LibID371565_AG_BRF_HMMYTDRX3_TCAGCATC_S1_L002_R2_001.fastq.gz": "https://data.bioplatforms.com/dataset/bpa-grasslands-hi-c-371565-373565/resource/6210ed784e097cc422f64d377a6c356b/download/369564_LibID371565_AG_BRF_HMMYTDRX3_TCAGCATC_S1_L002_R2_001.fastq.gz",
-    "369564_LibID371565_AG_BRF_HMMYTDRX3_TCAGCATC_S1_L002_R1_001.fastq.gz": "https://data.bioplatforms.com/dataset/bpa-grasslands-hi-c-371565-373565/resource/80421efe3bc90ae4ecfa914bd27cd362/download/369564_LibID371565_AG_BRF_HMMYTDRX3_TCAGCATC_S1_L002_R1_001.fastq.gz",
+    "350768_AusARG_BRF_HCN7WDRXY_S3_L002_R1_001.fastq.gz": "https://data.bioplatforms.com/dataset/bpa-ausarg-hi-c-350768-hcn7wdrxy/resource/62eb9891ef16f3f1a4272bbe627b66c1/download/350768_AusARG_BRF_HCN7WDRXY_S3_L002_R1_001.fastq.gz",
+    "350768_AusARG_BRF_HCN7WDRXY_S3_L002_R2_001.fastq.gz": "https://data.bioplatforms.com/dataset/bpa-ausarg-hi-c-350768-hcn7wdrxy/resource/2e5bf004e6a4b60484f760a92cb30fb6/download/350768_AusARG_BRF_HCN7WDRXY_S3_L002_R2_001.fastq.gz",
+    "350768_AusARG_BRF_HCN7WDRXY_S3_L001_R1_001.fastq.gz": "https://data.bioplatforms.com/dataset/bpa-ausarg-hi-c-350768-hcn7wdrxy/resource/b55411e6c637bc3513a15e59c8e21c4c/download/350768_AusARG_BRF_HCN7WDRXY_S3_L001_R1_001.fastq.gz",
+    "350768_AusARG_BRF_HCN7WDRXY_S3_L001_R2_001.fastq.gz": "https://data.bioplatforms.com/dataset/bpa-ausarg-hi-c-350768-hcn7wdrxy/resource/9587a0c1b1f66de712682f888b6a2fa5/download/350768_AusARG_BRF_HCN7WDRXY_S3_L001_R2_001.fastq.gz",
 }
 
 
@@ -21,13 +23,11 @@ rule format_config_file:
     input:
         sanger_config_template=local(sanger_config_template),
     output:
-        rendered_yaml=add_bucket_to_path(
-            Path(
-                dataset_id, "results", "config", "sangertol_genomeassembly_params.yaml"
-            )
+        rendered_yaml=Path(
+            "resources", "config", "sangertol_genomeassembly_params.yaml"
         ),
     params:
-        pacbio_reads=[rules.samtools_fasta.output.reads],
+        pacbio_reads=[rules.ncbi_dl_target.output.reads],
         hic_reads=[rules.samtools_import.output.cram],
     container:
         get_container("ncbi-datasets-pylib")
@@ -39,9 +39,9 @@ rule config_target:
     default_target: True
     localrule: True
     input:
-        storage.s3(rules.samtools_import.output),
-        storage.s3(rules.samtools_fasta.output),
-        rendered_yaml=storage.s3(rules.format_config_file.output.rendered_yaml),
+        rules.samtools_import.output,
+        rules.ncbi_dl_target.output,
+        rendered_yaml=rules.format_config_file.output.rendered_yaml,
     output:
         "results/sangertol_genomeassembly_params.yaml",
     shell:
