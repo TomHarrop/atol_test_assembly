@@ -40,8 +40,8 @@ singularity-args: "-B $PWD,$TMPDIR,/scratch \
 singularity-prefix: $SINGULARITY_CACHEDIR/library
 apptainer-prefix: $SINGULARITY_CACHEDIR/library
 # see https://snakemake.github.io/snakemake-plugin-catalog/plugins/storage/fs.html#further-details
-default-storage-provider: fs
-local-storage-prefix: $MYSCRATCH/atol_test_assembly/.snakemake
+# default-storage-provider: fs
+# local-storage-prefix: $MYSCRATCH/atol_test_assembly/.snakemake
 shadow-prefix: $MYSCRATCH/atol_test_assembly/.snakemake
 shared-fs-usage:
   - persistence
