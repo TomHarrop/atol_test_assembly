@@ -19,10 +19,10 @@ rule dump_srafile:
     # have to explicitly specify the paths rather than use subpath() because of
     # the way sra-tools resolves them
     params:
-        outdir="resources/ncbi",
-        outfile="{filename}.fasta",
-        # outfile=subpath(output.fasta, basename=True),
-        # outdir=subpath(output.fasta, parent=True),
+        # outdir="resources/ncbi",
+        # outfile="{filename}.fasta",
+        outfile=subpath(output.fasta, basename=True),
+        outdir=subpath(output.fasta, parent=True),
     log:
         "logs/dump_srafile.{filename}.log",
     threads: 2

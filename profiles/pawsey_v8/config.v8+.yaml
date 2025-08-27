@@ -41,7 +41,7 @@ singularity-prefix: $SINGULARITY_CACHEDIR/library
 apptainer-prefix: $SINGULARITY_CACHEDIR/library
 # see https://snakemake.github.io/snakemake-plugin-catalog/plugins/storage/fs.html#further-details
 default-storage-provider: fs
-local-storage-prefix: $PWD/.snakemake
+local-storage-prefix: $PWD/.snakemake/storage
 shadow-prefix: $PWD/.snakemake
 shared-fs-usage:
   - persistence
