@@ -17,6 +17,7 @@ rule dump_srafile:
     output:
         fasta=temp(Path("resources", "reads", "{filename}.fasta")),
     params:
+        outfile=subpath(output.fasta, basename=True),
         outdir=subpath(output.fasta, parent=True),
     log:
         Path("logs", "dump_srafile.{filename}.log"),
@@ -27,23 +28,20 @@ rule dump_srafile:
     shadow:
         "minimal"
     container:
-        "docker://quay.io/biocontainers/sra-tools:3.1.1--h4304569_0"
+        "docker://quay.io/biocontainers/sra-tools:3.2.1--h4304569_1"
     shell:
-        "ln -s {input.srafile} ./{wildcards.filename} && "
         'tmpdir="$( mktemp -d )" && '
         "fasterq-dump "
-        "--outfile {wildcards.filename} "
+        "--outfile {params.outfile} "
         "--outdir {params.outdir} "
         "--threads {threads} "
         "--details "
         "--log-level 6 "
         "--verbose "
         "--fasta "
-        '--temp "${{tmpdir}}" '     
-        "{wildcards.filename} "
+        '--temp "${{tmpdir}}" '
+        "{input.srafile} "
         "&> {log} "
-        "&& ls -lhrt ./*/* "
-        
 
 
 rule download_srafile:
