@@ -21,6 +21,8 @@ rule dump_srafile:
     log:
         Path("logs", "dump_srafile.{filename}.log"),
     threads: 2
+    resources:
+        runtime=lambda wildcards, attempt: int(60 * attempt),
     shadow:
         "minimal"
     container:
@@ -47,7 +49,8 @@ rule download_srafile:
         pacbio_url=pacbio_url,
     log:
         Path("logs", "download_srafile.SRR33206838.log"),
-    threads: 2
+    resources:
+        runtime=lambda wildcards, attempt: int(60 * attempt),
     shadow:
         "minimal"
     container:

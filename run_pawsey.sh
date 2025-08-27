@@ -29,7 +29,7 @@ printf "SLURM_CPUS_ON_NODE: %s\n" "${SLURM_CPUS_ON_NODE}"
 PIPELINE_VERSION="a6f7cb6"
 SOURCE_DIRNAME="atol_test_assembly-PogonaVitticeps103695"
 RESULT_DIRNAME="PogonaVitticeps103695"
-RESULT_VERSION="v3"
+RESULT_VERSION="v0"
 
 PIPELINE_PARAMS=(
 	"--input" "results/sangertol_genomeassembly_params.yaml" 
