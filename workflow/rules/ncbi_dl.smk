@@ -14,7 +14,7 @@ rule ncbi_dl_target:
 # can't use shadow rules or filesystems with sra-tools.
 rule dump_srafile:
     input:
-        srafile="resources/reads/{filename}",
+        srafile=local("resources/reads/{filename}"),
     output:
         fasta=temp(local("resources/reads/{filename}.fasta")),
     params:
@@ -45,7 +45,7 @@ rule dump_srafile:
 
 rule download_srafile:
     output:
-        srafile=Path("resources", "reads", "SRR33206838"),
+        srafile=local("resources/reads/SRR33206838"),
     params:
         outdir=subpath(output[0], parent=True),
         pacbio_url=pacbio_url,
