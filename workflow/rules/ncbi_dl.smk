@@ -4,7 +4,7 @@ pacbio_url = "https://sra-downloadb.be-md.ncbi.nlm.nih.gov/sos8/sra-pub-run-834/
 
 rule ncbi_dl_target:
     input:
-        Path("resources", "reads", f"{filename}.fasta"),
+        Path("resources", "reads", "ncbi", f"{filename}.fasta"),
     output:
         reads=Path("resources", "reads", "hifi", "ccs_reads.fasta.gz"),
     shell:
@@ -14,12 +14,12 @@ rule ncbi_dl_target:
 # can't use shadow rules or filesystems with sra-tools.
 rule dump_srafile:
     input:
-        srafile=local("resources/reads/{filename}"),
+        srafile=local("resources/reads/ncbi/{filename}"),
     output:
-        fasta=temp(local("resources/reads/{filename}.fasta")),
+        fasta=temp(local("resources/reads/ncbi/{filename}.fasta")),
     params:
-        outfile="{filename}.fasta",
-        outdir="resources/reads",
+        outfile=subpath(output.fasta, basename=True),
+        outdir=subpath(output.fasta, parent=True),
     log:
         Path("logs", "dump_srafile.{filename}.log"),
     threads: 2
@@ -45,7 +45,7 @@ rule dump_srafile:
 
 rule download_srafile:
     output:
-        srafile=local("resources/reads/SRR33206838"),
+        srafile=local("resources/reads/ncbi/SRR33206838"),
     params:
         outdir=subpath(output[0], parent=True),
         pacbio_url=pacbio_url,
