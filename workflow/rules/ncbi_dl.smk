@@ -21,7 +21,7 @@ rule dump_srafile:
         outfile=subpath(output.fasta, basename=True),
         outdir=subpath(output.fasta, parent=True),
     log:
-        Path("logs", "dump_srafile.{filename}.log"),
+        local("logs/dump_srafile.{filename}.log"),
     threads: 2
     resources:
         runtime="12h",
