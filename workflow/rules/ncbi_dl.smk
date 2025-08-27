@@ -11,14 +11,15 @@ rule ncbi_dl_target:
         "cp {input} {output} "
 
 
+# can't use shadow rules or filesystems with sra-tools.
 rule dump_srafile:
     input:
-        srafile=Path("resources", "reads", "{filename}"),
+        srafile="resources/reads/{filename}",
     output:
-        fasta=temp(Path("resources", "reads", "{filename}.fasta")),
+        fasta=temp(local("resources/reads/{filename}.fasta")),
     params:
-        outfile=subpath(output.fasta, basename=True),
-        outdir=subpath(output.fasta, parent=True),
+        outfile="{filename}.fasta",
+        outdir="resources/reads",
     log:
         Path("logs", "dump_srafile.{filename}.log"),
     threads: 2
