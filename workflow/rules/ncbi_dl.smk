@@ -8,9 +8,11 @@ rule ncbi_dl_target:
     output:
         reads="resources/reads/hifi/ccs_reads.fasta.gz",
     resources:
-        runtime=30,
+        runtime=60,
+    container:
+        "docker://quay.io/biocontainers/pigz:2.8"
     shell:
-        "cp {input} {output} "
+        "pigz -9 <{input} >{output}"
 
 
 rule dump_srafile:
@@ -18,18 +20,14 @@ rule dump_srafile:
         srafile="resources/ncbi/{filename}.sra",
     output:
         fasta=temp("resources/ncbi/{filename}.fasta"),
-    # have to explicitly specify the paths rather than use subpath() because of
-    # the way sra-tools resolves them
     params:
-        # outdir="resources/ncbi",
-        # outfile="{filename}.fasta",
         outfile=subpath(output.fasta, basename=True),
         outdir=subpath(output.fasta, parent=True),
     log:
         "logs/dump_srafile.{filename}.log",
     threads: 2
     resources:
-        runtime="12h",
+        runtime="6h",
         mem="128GB",
     shadow:
         "minimal"
@@ -48,8 +46,6 @@ rule dump_srafile:
         '--temp "${{tmpdir}}" '
         "{input.srafile} "
         "&> {log} "
-        "&& find . "
-        "&& find {params.outdir}/ "
 
 
 rule download_srafile:
