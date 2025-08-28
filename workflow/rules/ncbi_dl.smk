@@ -8,7 +8,7 @@ rule ncbi_dl_target:
     output:
         reads="resources/reads/hifi/ccs_reads.fasta.gz",
     resources:
-        runtime=60,
+        runtime="6h",
     container:
         "docker://quay.io/biocontainers/pigz:2.8"
     shell:
