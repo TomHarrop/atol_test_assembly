@@ -6,7 +6,9 @@ rule ncbi_dl_target:
     input:
         f"resources/ncbi/{filename}.fasta",
     output:
-        reads=Path("resources", "reads", "hifi", "ccs_reads.fasta.gz"),
+        reads="resources/reads/hifi/ccs_reads.fasta.gz",
+    resources:
+        runtime=30,
     shell:
         "cp {input} {output} "
 
