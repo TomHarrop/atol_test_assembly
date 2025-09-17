@@ -42,7 +42,7 @@ rule config_target:
     localrule: True
     input:
         rules.samtools_import.output,
-        # rules.ont_tar_to_fastq.output,
+        rules.ont_tar_to_fastq.output,
         rendered_yaml=rules.format_config_file.output.rendered_yaml,
     output:
         "results/sangertol_genomeassembly_params.yaml",
