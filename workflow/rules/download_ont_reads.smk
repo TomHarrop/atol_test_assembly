@@ -13,9 +13,7 @@ rule ont_tar_to_fastq:
     input:
         get_ont_readfiles,
     output:
-        reads=add_bucket_to_path(
-            Path(dataset_id, "results", "reads", "ont", "ont.fq.gz")
-        ),
+        reads=Path("resources", "reads", "ont", "ont.fq.gz"),
     log:
         Path("logs", "ont_tar_to_fastq.log"),
     threads: 8
