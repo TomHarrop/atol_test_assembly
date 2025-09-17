@@ -12,10 +12,8 @@ include: "rules/ncbi_dl.smk"
 # this is from the bpa_dataportal_downloads project
 # results of a search for query = {"sample_id": '102.100.100/411655'}
 data_file_dict = {
-    "350768_AusARG_BRF_HCN7WDRXY_S3_L002_R1_001.fastq.gz": "https://data.bioplatforms.com/dataset/bpa-ausarg-hi-c-350768-hcn7wdrxy/resource/62eb9891ef16f3f1a4272bbe627b66c1/download/350768_AusARG_BRF_HCN7WDRXY_S3_L002_R1_001.fastq.gz",
-    "350768_AusARG_BRF_HCN7WDRXY_S3_L002_R2_001.fastq.gz": "https://data.bioplatforms.com/dataset/bpa-ausarg-hi-c-350768-hcn7wdrxy/resource/2e5bf004e6a4b60484f760a92cb30fb6/download/350768_AusARG_BRF_HCN7WDRXY_S3_L002_R2_001.fastq.gz",
-    "350768_AusARG_BRF_HCN7WDRXY_S3_L001_R1_001.fastq.gz": "https://data.bioplatforms.com/dataset/bpa-ausarg-hi-c-350768-hcn7wdrxy/resource/b55411e6c637bc3513a15e59c8e21c4c/download/350768_AusARG_BRF_HCN7WDRXY_S3_L001_R1_001.fastq.gz",
-    "350768_AusARG_BRF_HCN7WDRXY_S3_L001_R2_001.fastq.gz": "https://data.bioplatforms.com/dataset/bpa-ausarg-hi-c-350768-hcn7wdrxy/resource/9587a0c1b1f66de712682f888b6a2fa5/download/350768_AusARG_BRF_HCN7WDRXY_S3_L001_R2_001.fastq.gz",
+    "606210_IPM_BRF_AAGWH2JM5_GCAGGTTC_S1_R1_001.fastq.gz": "https://data.bioplatforms.com/dataset/bpa-ipm-illumina-shortread-606210-aagwh2jm5/resource/3bb700497b13f7999806624b69e70da5/download/606210_IPM_BRF_AAGWH2JM5_GCAGGTTC_S1_R1_001.fastq.gz",
+    "606210_IPM_BRF_AAGWH2JM5_GCAGGTTC_S1_R2_001.fastq.gz": "https://data.bioplatforms.com/dataset/bpa-ipm-illumina-shortread-606210-aagwh2jm5/resource/ddf19cf0430f915497bcb5fe63ca2c78/download/606210_IPM_BRF_AAGWH2JM5_GCAGGTTC_S1_R2_001.fastq.gz",
 }
 
 

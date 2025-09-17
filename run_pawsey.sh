@@ -26,9 +26,9 @@ printf "TMPDIR: %s\n" "${TMPDIR}"
 printf "SLURM_CPUS_ON_NODE: %s\n" "${SLURM_CPUS_ON_NODE}"
 
 # parameters
-PIPELINE_VERSION="a6f7cb6"
-SOURCE_DIRNAME="atol_test_assembly-PogonaVitticeps103695"
-RESULT_DIRNAME="PogonaVitticeps103695"
+PIPELINE_VERSION="1.1.0"
+SOURCE_DIRNAME="atol_test_assembly-taxid168868"
+RESULT_DIRNAME="taxid168868"
 RESULT_VERSION="v0"
 
 PIPELINE_PARAMS=(
@@ -82,7 +82,7 @@ snakemake \
 nextflow \
 	-log "nextflow_logs/nextflow_inspect.$(date +"%Y%m%d%H%M%S").${RANDOM}.log" \
 	inspect \
-	-concretize sanger-tol/genomeassembly \
+	-concretize nf-core/genomeassembler \
 	"${PIPELINE_PARAMS[@]}"
 
 # Note, it's tempting to use the apptainer profile, but the nf-core (and some
@@ -91,6 +91,6 @@ nextflow \
 nextflow \
 	-log "nextflow_logs/nextflow_run.$(date +"%Y%m%d%H%M%S").${RANDOM}.log" \
 	run \
-	sanger-tol/genomeassembly \
+	nf-core/genomeassembler \
 	"${PIPELINE_PARAMS[@]}" \
 	-resume 
