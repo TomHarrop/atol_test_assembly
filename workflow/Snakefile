@@ -3,7 +3,10 @@
 
 include: "rules/common.smk"
 include: "rules/samtools_import.smk"
-include: "rules/ncbi_dl.smk"
+include: "rules/download_ont_reads.smk"
+
+
+# include: "rules/ncbi_dl.smk"
 
 
 # include: "rules/samtools_fasta.smk"
@@ -26,7 +29,7 @@ rule format_config_file:
             "resources", "config", "sangertol_genomeassembly_params.yaml"
         ),
     params:
-        pacbio_reads=[rules.ncbi_dl_target.output.reads],
+        ont_reads=[rules.ont_tar_to_fastq.output.reads],
         hic_reads=[rules.samtools_import.output.cram],
     container:
         get_container("ncbi-datasets-pylib")
@@ -39,7 +42,7 @@ rule config_target:
     localrule: True
     input:
         rules.samtools_import.output,
-        "resources/reads/606218_IPM_BRF_PBE32261_ONTPromethION_fastq_pass.tar",
+        rules.ont_tar_to_fastq.output,
         rendered_yaml=rules.format_config_file.output.rendered_yaml,
     output:
         "results/sangertol_genomeassembly_params.yaml",

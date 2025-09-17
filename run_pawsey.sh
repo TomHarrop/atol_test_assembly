@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH --job-name=atol_PogonaVitticeps103695
+#SBATCH --job-name=atol_taxid168868
 #SBATCH --time=3-00
 #SBATCH --cpus-per-task=2
 #SBATCH --ntasks=1
