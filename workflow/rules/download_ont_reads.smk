@@ -22,4 +22,6 @@ rule ont_tar_to_fastq:
     container:
         get_container("samtools")
     shell:
+        "exit 1 ; "
         "cp {input} {output.reads}"
+        # TODO
