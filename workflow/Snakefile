@@ -14,8 +14,8 @@ include: "rules/ncbi_dl.smk"
 data_file_dict = {
     "606210_IPM_BRF_AAGWH2JM5_GCAGGTTC_S1_R1_001.fastq.gz": "https://data.bioplatforms.com/dataset/bpa-ipm-illumina-shortread-606210-aagwh2jm5/resource/3bb700497b13f7999806624b69e70da5/download/606210_IPM_BRF_AAGWH2JM5_GCAGGTTC_S1_R1_001.fastq.gz",
     "606210_IPM_BRF_AAGWH2JM5_GCAGGTTC_S1_R2_001.fastq.gz": "https://data.bioplatforms.com/dataset/bpa-ipm-illumina-shortread-606210-aagwh2jm5/resource/ddf19cf0430f915497bcb5fe63ca2c78/download/606210_IPM_BRF_AAGWH2JM5_GCAGGTTC_S1_R2_001.fastq.gz",
+    "606218_IPM_BRF_PBE32261_ONTPromethION_fastq_pass.tar": "https://data.bioplatforms.com/dataset/bpa-ipm-ont-promethion-606218-pbe32261/resource/c9d9d5b51706e8fab657471edeb9a185/download/606218_IPM_BRF_PBE32261_ONTPromethION_fastq_pass.tar",
 }
-
 
 
 rule format_config_file:
@@ -39,42 +39,9 @@ rule config_target:
     localrule: True
     input:
         rules.samtools_import.output,
-        rules.ncbi_dl_target.output,
+        "resources/reads/606218_IPM_BRF_PBE32261_ONTPromethION_fastq_pass.tar",
         rendered_yaml=rules.format_config_file.output.rendered_yaml,
     output:
         "results/sangertol_genomeassembly_params.yaml",
     shell:
         "cp {input.rendered_yaml} {output}"
-
-
-module test_rm:
-    snakefile:
-        github("tomharrop/test-module-rm", path="workflow/Snakefile", tag="v0.0.6")
-    config:
-        {
-            **config,
-            "query_genome": storage.s3(
-                (
-                    "s3://pawsey1132.atol.testassembly/"
-                    "ThemedaTriandra106636/results/sanger_tol/"
-                    "ThemedaTriandra106636.hifiasm-hic.v3/scaffolding_hap1/"
-                    "yahs/out.break.yahs/hap1_scaffolds_final.fa"
-                ),
-            ),
-        }
-
-
-use rule * from test_rm as test_rm_*
-
-
-use rule clean from test_rm as test_rm_clean with:
-    resources:
-        runtime=lambda wildcards, attempt: 720 * attempt,
-        mem_mb=lambda wildcards, attempt: 48e3 * attempt,
-
-
-use rule all from test_rm as rm_all with:
-    output:
-        storage.s3(
-            "s3://pawsey1132.atol.testassembly/ThemedaTriandra106636/results/out_scaffolds_final.masked.fa.gz",
-        ),
