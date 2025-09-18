@@ -32,7 +32,7 @@ RESULT_DIRNAME="taxid168868"
 RESULT_VERSION="v0"
 
 PIPELINE_PARAMS=(
-	"--input" "resources/configs/samplesheet.${RESULT_DIRNAME}.csv"
+	"--input" "results/config/nfcore-genomeassembler.config.csv"
 	"--outdir" "results/${RESULT_DIRNAME}/results/genomeassembler"
 	"--ont" "--ont_flye"
 	"-profile" "singularity,pawsey"

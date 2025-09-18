@@ -11,6 +11,7 @@ include: "rules/download_ont_reads.smk"
 
 # include: "rules/samtools_fasta.smk"
 
+dataset_id = "taxid168868"
 
 # this is from the bpa_dataportal_downloads project
 # results of a search for query = {"sample_id": '102.100.100/411655'}
@@ -23,18 +24,14 @@ data_file_dict = {
 
 rule format_config_file:
     input:
-        sanger_config_template=local(sanger_config_template),
+        "resources/configs/samplesheet.template.csv",
     output:
-        rendered_yaml=Path(
-            "resources", "config", "sangertol_genomeassembly_params.yaml"
-        ),
+        rendered_csv="results/config/nfcore-genomeassembler.config.csv",
     params:
-        ont_reads=[rules.ont_tar_to_fastq.output.reads],
-        hic_reads=[rules.samtools_import.output.cram],
-    container:
-        get_container("ncbi-datasets-pylib")
-    script:
-        "scripts/format_config_file.py"
+        dataset_id=dataset_id,
+        ont_reads=Path(rules.ont_tar_to_fastq.output.reads).resolve(),
+    template_engine:
+        "jinja2"
 
 
 rule config_target:
