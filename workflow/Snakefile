@@ -38,6 +38,6 @@ rule config_target:
     default_target: True
     localrule: True
     input:
-        rules.samtools_import.output,
+        rules.concatenate_hic_reads.output,
         rules.ont_tar_to_fastq.output,
         rules.format_config_file.output.rendered_csv,
