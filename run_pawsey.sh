@@ -32,7 +32,7 @@ RESULT_DIRNAME="taxid168868"
 RESULT_VERSION="v0"
 
 PIPELINE_PARAMS=(
-	"--input" "results/sangertol_genomeassembly_params.yaml" 
+	"--input" "resources/configs/samplesheet.${RESULT_DIRNAME}.csv"
 	"--outdir" "results/${RESULT_DIRNAME}/results/sanger_tol"
     "--timestamp" "${RESULT_VERSION}" 
 	"--hifiasm_hic_on"
