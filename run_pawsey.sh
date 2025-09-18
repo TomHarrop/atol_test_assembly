@@ -1,13 +1,13 @@
 #!/bin/bash
 
 #SBATCH --job-name=atol_taxid168868
-#SBATCH --time=0-01
+#SBATCH --time=4-00
 #SBATCH --cpus-per-task=2
 #SBATCH --ntasks=1
 #SBATCH --mem=32g
 #SBATCH --output=sm.slurm.out
 #SBATCH --error=sm.slurm.err
-## SBATCH --partition=long
+#SBATCH --partition=long
 
 # Dependencies
 module load python/3.11.6
@@ -33,9 +33,11 @@ RESULT_VERSION="v0"
 
 PIPELINE_PARAMS=(
 	"--input" "results/config/nfcore-genomeassembler.config.csv"
-	"--outdir" "results/${RESULT_DIRNAME}/results/genomeassembler"
+	"--outdir" "s3://pawsey1132.atol.testassembly/${RESULT_DIRNAME}/results/genomeassembler"
+	"--porechop"
 	"--use_ref" "false"
 	"--lift_annotations" "false"
+	"--busco_lineage" "hymenoptera_odb10"
 	"-profile" "singularity,pawsey,ont_flye"
 	"-r" "${PIPELINE_VERSION}"
 )
