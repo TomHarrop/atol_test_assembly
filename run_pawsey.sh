@@ -34,6 +34,8 @@ RESULT_VERSION="v0"
 PIPELINE_PARAMS=(
 	"--input" "results/config/nfcore-genomeassembler.config.csv"
 	"--outdir" "results/${RESULT_DIRNAME}/results/genomeassembler"
+	"--use_ref" "false"
+	"--lift_annotations" "false"
 	"-profile" "singularity,pawsey,ont_flye"
 	"-r" "${PIPELINE_VERSION}"
 )
