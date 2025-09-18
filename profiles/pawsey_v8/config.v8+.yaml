@@ -1,4 +1,7 @@
 ---
+__use_yte__: true
+__definitions__:
+  - from pathlib import Path
 executor: cluster-generic
 cluster-generic-submit-cmd:
   mkdir -p slurm_logs/{rule} &&
@@ -41,8 +44,10 @@ singularity-prefix: $SINGULARITY_CACHEDIR/library
 apptainer-prefix: $SINGULARITY_CACHEDIR/library
 # see https://snakemake.github.io/snakemake-plugin-catalog/plugins/storage/fs.html#further-details
 default-storage-provider: fs
-local-storage-prefix: $(readlink -f $PWD/.snakemake/storage)
-shadow-prefix: $(readlink -f $PWD/.snakemake)
+local-storage-prefix: ?Path(".", ".snakemake", "storage").resolve().as_posix()
+shadow-prefix: ?Path(".", ".snakemake").resolve().as_posix()
+# local-storage-prefix: $(readlink -f $PWD/.snakemake/storage)
+# shadow-prefix: $(readlink -f $PWD/.snakemake)
 shared-fs-usage:
   - persistence
   - software-deployment
