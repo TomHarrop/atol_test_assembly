@@ -40,3 +40,4 @@ rule config_target:
     input:
         rules.samtools_import.output,
         rules.ont_tar_to_fastq.output,
+        rules.format_config_file.output.rendered_csv,
