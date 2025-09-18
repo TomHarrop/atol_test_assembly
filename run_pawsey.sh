@@ -34,7 +34,7 @@ RESULT_VERSION="v0"
 PIPELINE_PARAMS=(
 	"--input" "resources/configs/samplesheet.${RESULT_DIRNAME}.csv"
 	"--outdir" "results/${RESULT_DIRNAME}/results/genomeassembler"
-	"--ont_flye"
+	"--ont" "--ont_flye"
 	"-profile" "singularity,pawsey"
 	"-r" "${PIPELINE_VERSION}"
 )
