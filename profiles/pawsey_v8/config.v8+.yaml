@@ -42,7 +42,7 @@ apptainer-prefix: $SINGULARITY_CACHEDIR/library
 # see https://snakemake.github.io/snakemake-plugin-catalog/plugins/storage/fs.html#further-details
 default-storage-provider: fs
 local-storage-prefix: $(readlink -f $PWD/.snakemake/storage)
-shadow-prefix: $PWD/.snakemake
+shadow-prefix: $(readlink -f $PWD/.snakemake)
 shared-fs-usage:
   - persistence
   - software-deployment
