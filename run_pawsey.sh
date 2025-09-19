@@ -34,7 +34,6 @@ RESULT_VERSION="v0"
 PIPELINE_PARAMS=(
 	"--input" "results/config/nfcore-genomeassembler.config.csv"
 	"--outdir" "s3://pawsey1132.atol.testassembly/${RESULT_DIRNAME}/results/genomeassembler"
-	"--porechop"
 	"--use_ref" "false"
 	"--lift_annotations" "false"
 	"--busco_lineage" "hymenoptera_odb10"
