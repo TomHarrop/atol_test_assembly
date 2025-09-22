@@ -36,6 +36,7 @@ PIPELINE_PARAMS=(
 	"--outdir" "s3://pawsey1132.atol.testassembly/${RESULT_DIRNAME}/results/genomeassembler"
 	"--use_ref" "false"
 	"--lift_annotations" "false"
+	"--busco_db" "s3://pawsey1132.atol.refdata.busco/busco/lineages"
 	"--busco_lineage" "hymenoptera_odb10"
 	"-profile" "singularity,pawsey,ont_flye"
 	"-r" "${PIPELINE_VERSION}"
