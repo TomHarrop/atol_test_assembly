@@ -29,11 +29,11 @@ printf "SLURM_CPUS_ON_NODE: %s\n" "${SLURM_CPUS_ON_NODE}"
 PIPELINE_VERSION="a6f7cb6"
 SOURCE_DIRNAME="atol_test_assembly-PogonaVitticeps103695"
 RESULT_DIRNAME="PogonaVitticeps103695"
-RESULT_VERSION="v0"
+RESULT_VERSION="v1"
 
 PIPELINE_PARAMS=(
 	"--input" "results/sangertol_genomeassembly_params.yaml" 
-	"--outdir" "results/${RESULT_DIRNAME}/results/sanger_tol"
+	"--outdir" "s3://pawsey1132.atol.testassembly/${RESULT_DIRNAME}/results/genomeassembler"
     "--timestamp" "${RESULT_VERSION}" 
 	"--hifiasm_hic_on"
 	"-profile" "singularity,pawsey"
