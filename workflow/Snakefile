@@ -29,7 +29,7 @@ rule format_config_file:
         rendered_csv="results/config/nfcore-genomeassembler.config.csv",
     params:
         dataset_id=dataset_id,
-        ont_reads=Path(rules.ont_tar_to_fastq.output.reads).resolve(),
+        ont_reads=Path(rules.ont_qc.output.reads).resolve(),
     template_engine:
         "jinja2"
 
@@ -39,5 +39,5 @@ rule config_target:
     localrule: True
     input:
         rules.samtools_import.input,
-        rules.ont_tar_to_fastq.output,
+        rules.ont_qc.output,
         rules.format_config_file.output.rendered_csv,

@@ -1,28 +1,47 @@
-def get_hic_readfiles_by_direction(direction):
-    """Get Hi-C read files filtered by direction (R1 or R2)"""
-    return [
-        Path("resources", "reads", filename)
-        for filename, url in data_file_dict.items()
-        if filename.endswith(".fastq.gz") and f"_{direction}_" in filename
-    ]
+def get_raw_shortread_files(wildcards):
+    # hard code for now, need a method for sorting files
+    r1_file = Path(
+        "resources", "reads", "606210_IPM_BRF_AAGWH2JM5_GCAGGTTC_S1_R1_001.fastq.gz"
+    )
+    r2_file = Path(
+        "resources", "reads", "606210_IPM_BRF_AAGWH2JM5_GCAGGTTC_S1_R2_001.fastq.gz"
+    )
+    return {"r1": r1_file, "r2": r2_file}
 
 
-rule concatenate_hic_reads:
+rule shortread_qc:
     input:
-        files=lambda wildcards: [
-            rules.download_from_bpa.output[0].format(readfile=filename)
-            for filename, url in data_file_dict.items()
-            if filename.endswith(".fastq.gz")
-            and f"_{wildcards.direction}_" in filename
-        ],
+        unpack(get_raw_shortread_files),
     output:
-        merged=temp(Path("resources", "reads", "hic_merged_{direction}.fastq.gz")),
+        r1=Path("resources", "qc", "hic", "r1.fq.gz"),
+        r2=Path("resources", "qc", "hic", "r2.fq.gz"),
+        stats=Path("resources", "qc", "hic", "hic_stats.json"),
+        logs=directory(Path("resources", "qc", "hic", "qc_logs")),
+    params:
+        # shipped in container
+        adaptors="/usr/local/opt/bbmap-38.95-1/resources/adapters.fa",
     log:
-        Path("logs", "concatenate_hic_reads_{direction}.log"),
+        Path("logs", "shortread_qc.log"),
+    benchmark:
+        Path("logs", "shortread_qc.benchmark.txt")
+    threads: 32
     resources:
-        runtime=lambda wildcards, attempt: int(60 * attempt),
+        runtime=lambda wildcards, attempt: int(120 * attempt),
+    shadow:
+        "minimal"
+    container:
+        "docker://quay.io/biocontainers/atol-qc-raw-shortread:0.1.2--pyhdfd78af_0"
     shell:
-        "cat {input.files} > {output.merged} 2> {log}"
+        "atol-qc-raw-shortread "
+        "--threads {threads} "
+        "--in {input.r1} "
+        "--in2 {input.r2} "
+        "--out {output.r1} "
+        "--out2 {output.r2} "
+        "-a {params.adaptors} "
+        "--stats {output.stats} "
+        "--logs {output.logs} "
+        "&> {log}"
 
 
 # Combine Hi-C reads as follows: contains the list (-reads) of the HiC reads in
@@ -31,8 +50,8 @@ rule concatenate_hic_reads:
 # (Current attempt: don't include the SAM tags. See details at URL.)
 rule samtools_import:
     input:
-        r1=rules.concatenate_hic_reads.output.merged.format(direction="R1"),
-        r2=rules.concatenate_hic_reads.output.merged.format(direction="R2"),
+        r1=Path("resources", "qc", "hic", "r1.fq.gz"),
+        r2=Path("resources", "qc", "hic", "r2.fq.gz"),
     output:
         cram=Path("resources", "reads", "hic", "hic.cram"),
         index=Path("resources", "reads", "hic", "hic.cram.crai"),

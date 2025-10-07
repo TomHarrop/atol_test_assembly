@@ -12,22 +12,32 @@ def get_ont_readfiles(wildcards):
     return filelist
 
 
-rule ont_tar_to_fastq:
+rule ont_qc:
     input:
         get_ont_readfiles,
     output:
-        reads=Path("resources", "reads", "ont", "ont.fq.gz"),
+        reads=Path("resources", "qc", "ont", "ont.fq.gz"),
+        stats=Path("resources", "qc", "ont", "ont_stats.json"),
+        logs=directory(Path("resources", "qc", "ont", "qc_logs")),
+    params:
+        min_length=5000,
     log:
-        Path("logs", "ont_tar_to_fastq.log"),
-    threads: 8
+        Path("logs", "ont_qc.log"),
+    benchmark:
+        Path("logs", "ont_qc.benchmark.txt")
+    threads: 32
     resources:
         runtime=lambda wildcards, attempt: int(120 * attempt),
     shadow:
         "minimal"
     container:
-        get_container("samtools")
+        "docker://quay.io/biocontainers/atol-qc-raw-ont:0.1.2--pyhdfd78af_0"
     shell:
-        "mkdir untar && "
-        "tar -xvf {input} -C untar && "
-        'find untar -type f -name "*.fastq.gz" '
-        '-exec bash -c "cat {{}} >> {output}" \; '
+        "atol-qc-raw-ont "
+        "--threads {threads} "
+        "--tarfile {input} "
+        "--out {output.reads} "
+        "--stats {output.stats} "
+        "--logs {output.logs} "
+        "--min_length {params.min_length} "
+        "&>{log}"

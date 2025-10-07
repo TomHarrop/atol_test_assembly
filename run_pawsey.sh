@@ -29,7 +29,7 @@ printf "SLURM_CPUS_ON_NODE: %s\n" "${SLURM_CPUS_ON_NODE}"
 PIPELINE_VERSION="1.1.0"
 SOURCE_DIRNAME="atol_test_assembly-taxid168868"
 RESULT_DIRNAME="taxid168868"
-RESULT_VERSION="v0"
+RESULT_VERSION="v1"
 
 PIPELINE_PARAMS=(
 	"--input" "results/config/nfcore-genomeassembler.config.csv"

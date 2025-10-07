@@ -15,7 +15,8 @@ singularity-args: "-B $PWD,$TMPDIR \
   --nv \
   -H $(mktemp -d) \
   --pwd $PWD \
-  --containall --cleanenv --writable-tmpfs"
+  --containall --cleanenv --writable-tmpfs \
+  --env LC_ALL=C"
 # see https://snakemake.github.io/snakemake-plugin-catalog/plugins/storage/fs.html#further-details
 default-storage-provider: fs
 local-storage-prefix: $PWD/.snakemake
