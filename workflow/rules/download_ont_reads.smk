@@ -18,16 +18,17 @@ rule ont_qc:
     output:
         reads=Path("resources", "qc", "ont", "ont.fq.gz"),
         stats=Path("resources", "qc", "ont", "ont_stats.json"),
-        logs=directory(Path("resources", "qc", "ont", "qc_logs")),
     params:
         min_length=5000,
     log:
-        Path("logs", "ont_qc.log"),
+        log=Path("logs", "ont_qc.log"),
+        logdir=directory(Path("resources", "qc", "ont", "qc_logs")),
     benchmark:
         Path("logs", "ont_qc.benchmark.txt")
     threads: 32
     resources:
         runtime=lambda wildcards, attempt: int(120 * attempt),
+        mem=lambda wildcards, attempt: f"{int(32)* attempt}GiB",
     shadow:
         "minimal"
     container:
@@ -38,6 +39,6 @@ rule ont_qc:
         "--tarfile {input} "
         "--out {output.reads} "
         "--stats {output.stats} "
-        "--logs {output.logs} "
-        "--min_length {params.min_length} "
-        "&>{log}"
+        "--logs {log.logdir} "
+        "--min-length {params.min_length} "
+        "&> {log.log}"

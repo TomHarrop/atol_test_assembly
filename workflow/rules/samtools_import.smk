@@ -16,17 +16,18 @@ rule shortread_qc:
         r1=Path("resources", "qc", "hic", "r1.fq.gz"),
         r2=Path("resources", "qc", "hic", "r2.fq.gz"),
         stats=Path("resources", "qc", "hic", "hic_stats.json"),
-        logs=directory(Path("resources", "qc", "hic", "qc_logs")),
     params:
         # shipped in container
         adaptors="/usr/local/opt/bbmap-38.95-1/resources/adapters.fa",
     log:
-        Path("logs", "shortread_qc.log"),
+        log=Path("logs", "shortread_qc.log"),
+        logdir=directory(Path("resources", "qc", "hic", "qc_logs")),
     benchmark:
         Path("logs", "shortread_qc.benchmark.txt")
     threads: 32
     resources:
         runtime=lambda wildcards, attempt: int(120 * attempt),
+        mem=lambda wildcards, attempt: f"{int(32)* attempt}GiB",
     shadow:
         "minimal"
     container:
@@ -40,8 +41,8 @@ rule shortread_qc:
         "--out2 {output.r2} "
         "-a {params.adaptors} "
         "--stats {output.stats} "
-        "--logs {output.logs} "
-        "&> {log}"
+        "--logs {log.logdir} "
+        "&> {log.log}"
 
 
 # Combine Hi-C reads as follows: contains the list (-reads) of the HiC reads in
