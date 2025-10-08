@@ -26,7 +26,7 @@ rule shortread_qc:
         Path("logs", "shortread_qc.benchmark.txt")
     threads: 32
     resources:
-        runtime=lambda wildcards, attempt: int(120 * attempt),
+        runtime=lambda wildcards, attempt: int(240 * attempt),
         mem=lambda wildcards, attempt: f"{int(32)* attempt}GiB",
     shadow:
         "minimal"

@@ -27,8 +27,8 @@ rule ont_qc:
         Path("logs", "ont_qc.benchmark.txt")
     threads: 32
     resources:
-        runtime=lambda wildcards, attempt: int(120 * attempt),
-        mem=lambda wildcards, attempt: f"{int(32)* attempt}GiB",
+        runtime=lambda wildcards, attempt: int(240 * attempt),
+        mem=lambda wildcards, attempt: f"{int(64)* attempt}GiB",
     shadow:
         "minimal"
     container:
