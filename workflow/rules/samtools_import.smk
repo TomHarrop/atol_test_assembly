@@ -31,7 +31,7 @@ rule shortread_qc:
     shadow:
         "minimal"
     container:
-        "docker://quay.io/biocontainers/atol-qc-raw-shortread:0.1.3--pyhdfd78af_0"
+        "docker://quay.io/biocontainers/atol-qc-raw-shortread:0.1.4--pyhdfd78af_0"
     shell:
         "atol-qc-raw-shortread "
         "--threads {threads} "
