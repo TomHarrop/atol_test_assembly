@@ -26,12 +26,12 @@ rule shortread_qc:
         Path("logs", "shortread_qc.benchmark.txt")
     threads: 32
     resources:
-        runtime=lambda wildcards, attempt: int(240 * attempt),
+        runtime=lambda wildcards, attempt: int(480 * attempt),
         mem=lambda wildcards, attempt: f"{int(32)* attempt}GiB",
     shadow:
         "minimal"
     container:
-        "docker://quay.io/biocontainers/atol-qc-raw-shortread:0.1.2--pyhdfd78af_0"
+        "docker://quay.io/biocontainers/atol-qc-raw-shortread:0.1.3--pyhdfd78af_0"
     shell:
         "atol-qc-raw-shortread "
         "--threads {threads} "
