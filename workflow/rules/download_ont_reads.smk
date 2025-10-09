@@ -32,7 +32,7 @@ rule ont_qc:
     shadow:
         "minimal"
     container:
-        "docker://quay.io/biocontainers/atol-qc-raw-ont:0.1.5--pyhdfd78af_0"
+        "docker://quay.io/biocontainers/atol-qc-raw-ont:0.1.4--pyhdfd78af_0"
     shell:
         "atol-qc-raw-ont "
         "--threads {threads} "
