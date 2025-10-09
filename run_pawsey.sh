@@ -72,6 +72,7 @@ snakemake \
 	--keep-going \
 	--cores 32 \
 	--local-cores "${SLURM_CPUS_ON_NODE}" \
+	--keep-incomplete --notemp \
 	config_target
 
 # Pull the containers into the cache before trying to launch the workflow.
