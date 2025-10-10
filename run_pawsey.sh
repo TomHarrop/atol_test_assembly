@@ -73,7 +73,7 @@ snakemake \
 	--cores 32 \
 	--local-cores "${SLURM_CPUS_ON_NODE}" \
 	--keep-incomplete --notemp \
-	ont_qc
+	config_target
 
 # Pull the containers into the cache before trying to launch the workflow.
 # Using the latest commit to dev because of issues with staging from s3 on

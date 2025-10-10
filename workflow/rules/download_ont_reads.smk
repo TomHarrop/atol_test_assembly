@@ -28,7 +28,7 @@ rule ont_qc:
     threads: 16
     resources:
         runtime=lambda wildcards, attempt: int(240 * attempt),
-        mem=lambda wildcards, attempt: f"{int(128)* attempt}GB",
+        mem=lambda wildcards, attempt: f"{int(256)* attempt}GB",
     shadow:
         "minimal"
     container:
