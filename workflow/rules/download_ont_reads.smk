@@ -29,6 +29,7 @@ rule ont_qc:
     resources:
         runtime=lambda wildcards, attempt: int(240 * attempt),
         mem=lambda wildcards, attempt: f"{int(256)* attempt}GB",
+        partitionFlag="--partition=highmem"
     shadow:
         "minimal"
     container:
