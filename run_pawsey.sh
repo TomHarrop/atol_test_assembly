@@ -70,7 +70,7 @@ snakemake \
 	--profile profiles/pawsey_v8 \
 	--retries 0 \
 	--keep-going \
-	--cores 32 \
+	--cores 66 \
 	--local-cores "${SLURM_CPUS_ON_NODE}" \
 	--keep-incomplete --notemp \
 	config_target
