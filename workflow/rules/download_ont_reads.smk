@@ -25,15 +25,15 @@ rule ont_qc:
         logdir=directory(Path("resources", "qc", "ont", "qc_logs")),
     benchmark:
         Path("logs", "ont_qc.benchmark.txt")
-    threads: 16
+    threads: 66
     resources:
-        runtime=lambda wildcards, attempt: int(240 * attempt),
+        runtime=lambda wildcards, attempt: int(150 * attempt),
         mem=lambda wildcards, attempt: f"{int(256)* attempt}GB",
         partitionFlag="--partition=highmem"
     shadow:
         "minimal"
     container:
-        "docker://quay.io/biocontainers/atol-qc-raw-ont:0.1.7--pyhdfd78af_0"
+        "docker://quay.io/biocontainers/atol-qc-raw-ont:0.1.9--pyhdfd78af_0"
     shell:
         "atol-qc-raw-ont "
         "--threads {threads} "
