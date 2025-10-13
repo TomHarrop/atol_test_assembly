@@ -25,7 +25,7 @@ rule ont_qc:
         logdir=directory(Path("resources", "qc", "ont", "qc_logs")),
     benchmark:
         Path("logs", "ont_qc.benchmark.txt")
-    threads: 66
+    threads: 32
     resources:
         runtime=lambda wildcards, attempt: int(150 * attempt),
         mem=lambda wildcards, attempt: f"{int(256)* attempt}GB",
