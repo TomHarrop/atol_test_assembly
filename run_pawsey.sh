@@ -1,10 +1,10 @@
 #!/bin/bash
 
 #SBATCH --job-name=atol_ttrian
-#SBATCH --time=3-00
+#SBATCH --time=0-04
 #SBATCH --cpus-per-task=2
 #SBATCH --ntasks=1
-#SBATCH --mem=32g
+#SBATCH --mem=16g
 #SBATCH --output=sm.slurm.out
 #SBATCH --error=sm.slurm.err
 #SBATCH --partition=long
@@ -71,7 +71,9 @@ snakemake \
 	--keep-going \
 	--cores 12 \
 	--local-cores "${SLURM_CPUS_ON_NODE}" \
-	config_target
+	-s workflow/download_rnaseq_reads.smk
+
+exit 0
 
 # Pull the containers into the cache before trying to launch the workflow.
 # Using the latest commit to dev because of issues with staging from s3 on

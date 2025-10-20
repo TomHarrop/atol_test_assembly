@@ -47,35 +47,3 @@ rule config_target:
     shell:
         "cp {input.rendered_yaml} {output}"
 
-
-module test_rm:
-    snakefile:
-        github("tomharrop/test-module-rm", path="workflow/Snakefile", tag="v0.0.6")
-    config:
-        {
-            **config,
-            "query_genome": storage.s3(
-                (
-                    "s3://pawsey1132.atol.testassembly/"
-                    "ThemedaTriandra106636/results/sanger_tol/"
-                    "ThemedaTriandra106636.hifiasm-hic.v3/scaffolding_hap1/"
-                    "yahs/out.break.yahs/hap1_scaffolds_final.fa"
-                ),
-            ),
-        }
-
-
-use rule * from test_rm as test_rm_*
-
-
-use rule clean from test_rm as test_rm_clean with:
-    resources:
-        runtime=lambda wildcards, attempt: 720 * attempt,
-        mem_mb=lambda wildcards, attempt: 48e3 * attempt,
-
-
-use rule all from test_rm as rm_all with:
-    output:
-        storage.s3(
-            "s3://pawsey1132.atol.testassembly/ThemedaTriandra106636/results/out_scaffolds_final.masked.fa.gz",
-        ),
