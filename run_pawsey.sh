@@ -7,7 +7,7 @@
 #SBATCH --mem=16g
 #SBATCH --output=sm.slurm.out
 #SBATCH --error=sm.slurm.err
-#SBATCH --partition=long
+## SBATCH --partition=long
 
 # Dependencies
 module load python/3.11.6
