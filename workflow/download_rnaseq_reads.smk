@@ -6,7 +6,8 @@ manifest = "config/rnaseq_manifest.csv"
 
 
 def get_target(wildcards):
-    readdir = local(checkpoints.download_rnaseq_reads.get().output["outdir"])
+    readdir = checkpoints.download_rnaseq_reads.get().output["outdir"]
+    raise ValueError(type(samples))
     samples = glob_wildcards(os.path.join(readdir, "{sample}.r1.fq.gz")).sample
     raise ValueError(samples)
 
