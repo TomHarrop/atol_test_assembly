@@ -35,7 +35,8 @@ singularity-args: "-B $PWD,$TMPDIR,/scratch \
   --nv \
   -H $(mktemp -d) \
   --pwd $PWD \
-  --containall --cleanenv --writable-tmpfs"
+  --containall --cleanenv --writable-tmpfs \
+  --env BPA_APIKEY=$BPA_APIKEY"
 singularity-prefix: $SINGULARITY_CACHEDIR/library
 apptainer-prefix: $SINGULARITY_CACHEDIR/library
 # see https://snakemake.github.io/snakemake-plugin-catalog/plugins/storage/fs.html#further-details
