@@ -14,7 +14,7 @@ def get_target(wildcards):
         r=["1", "2"],
     )
 
-    raise ValueError(target_files)
+    return target_files
 
 
 rule target:
