@@ -26,12 +26,12 @@ printf "TMPDIR: %s\n" "${TMPDIR}"
 printf "SLURM_CPUS_ON_NODE: %s\n" "${SLURM_CPUS_ON_NODE}"
 
 # parameters
-PIPELINE_VERSION="a6f7cb6"
-SOURCE_DIRNAME="atol_test_assembly-themeda_triandra"
-RESULT_DIRNAME="ThemedaTriandra106636"
-RESULT_VERSION="v3"
+export PIPELINE_VERSION="a6f7cb6"
+export SOURCE_DIRNAME="atol_test_assembly-themeda_triandra"
+export RESULT_DIRNAME="ThemedaTriandra106636"
+export RESULT_VERSION="v3"
 
-PIPELINE_PARAMS=(
+export PIPELINE_PARAMS=(
 	"--input" "results/sangertol_genomeassembly_params.yaml" 
 	"--outdir" "s3://pawsey1132.atol.testassembly/${RESULT_DIRNAME}/results/sanger_tol"
     "--timestamp" "${RESULT_VERSION}" 
