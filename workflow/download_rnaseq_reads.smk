@@ -50,7 +50,7 @@ checkpoint download_rnaseq_reads:
     input:
         manifest=manifest,
     output:
-        outdir=directory("resources/reads/rnaseq"),
+        outdir=local(directory("resources/reads/rnaseq")),
     log:
         "logs/download_rnaseq_reads.log",
     resources:
