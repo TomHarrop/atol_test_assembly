@@ -33,9 +33,9 @@ rule rnaseq_read_prep:
     log:
         log="logs/rnaseq_read_prep/{sample}.log",
         logdir=directory("resources/reads/qc/rnaseq/logs/{sample}"),
-    threads: 8
+    threads: 16
     resources:
-        runtime=lambda wildcards, attempt: int(30 * attempt),
+        runtime=lambda wildcards, attempt: int(180 * attempt),
         mem=lambda wildcards, attempt: f"{int(16)* attempt}GiB",
     container:
         "docker://quay.io/biocontainers/atol-qc-raw-shortread:0.1.6--pyhdfd78af_0"
